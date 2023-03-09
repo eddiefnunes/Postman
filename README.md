@@ -1,6 +1,6 @@
 # Postman - ChatGPT - Testes Automatizados 🧪💻
 
-Fiz um experimento, solicitei ao ChatGPT que me mostrasse 10 testes automatizados com o POSTMAN utilizando uma api de testes, o site JSONPlaceholder https://jsonplaceholder.typicode.com/)
+Fiz um experimento básico, solicitei ao ChatGPT que me mostrasse 10 testes automatizados com o POSTMAN utilizando uma api de testes, o site JSONPlaceholder https://jsonplaceholder.typicode.com/)
 
 Ele me retornou uma resposta com apenas nove testes.😅
 
