@@ -1,0 +1,78 @@
+Crie 10 teste automatizado com o postman utilizando https://jsonplaceholder.typicode.com/posts com a rota GET	/posts
+
+A seguir estão dez testes automatizados que você pode criar usando a rota GET /posts da API JSONPlaceholder com o Postman:
+
+Teste de status de resposta: Verifica se a solicitação GET /posts retorna um código de status HTTP 200 (OK).
+
+pm.test("Verifica o status da resposta", function () {
+    pm.response.to.have.status(200);
+});
+
+
+Teste de tipo de conteúdo: Verifica se a resposta retorna um tipo de conteúdo JSON.
+
+pm.test("Verifica o tipo de conteúdo", function () {
+    pm.response.to.have.header("Content-Type", "application/json; charset=utf-8");
+});
+
+
+Teste de tamanho da resposta: Verifica se a resposta retorna pelo menos um post.
+
+pm.test("Verifica o tamanho da resposta", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.length).to.be.greaterThan(0);
+});
+
+
+Teste de retorno de dados específicos: Verifica se a resposta retorna um post específico pelo seu ID.
+
+pm.test("Verifica o retorno de dados específicos", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData[0].userId).to.eql(1);
+});
+
+Teste de consulta com parâmetros: Verifica se a consulta retorna apenas posts do usuário com ID 1.
+
+pm.test("Verifica a consulta com parâmetros", function () {
+    var jsonData = pm.response.json();
+    for (var i = 0; i < jsonData.length; i++) {
+        pm.expect(jsonData[i].userId).to.eql(1);
+    }
+});
+pm.sendRequest("GET", "https://jsonplaceholder.typicode.com/posts?userId=1");
+
+Teste de paginação: Verifica se a consulta retorna a segunda página de resultados.
+
+pm.test("Verifica a paginação", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData[0].id).to.eql(11);
+});
+pm.sendRequest("GET", "https://jsonplaceholder.typicode.com/posts?_page=2&_limit=10");
+
+Teste de ordenação: Verifica se a consulta retorna os posts ordenados por título em ordem alfabética crescente.
+
+pm.test("Verifica a ordenação", function () {
+    var jsonData = pm.response.json();
+    for (var i = 1; i < jsonData.length; i++) {
+        pm.expect(jsonData[i].title > jsonData[i - 1].title).to.be.true;
+    }
+});
+pm.sendRequest("GET", "https://jsonplaceholder.typicode.com/posts?_sort=title");
+
+Teste de filtro: Verifica se a consulta retorna apenas posts que contenham a palavra "suscipit" no título.
+
+pm.test("Verifica o filtro", function () {
+    var jsonData = pm.response.json();
+    for (var i = 0; i < jsonData.length; i++) {
+        pm.expect(jsonData[i].title).to.include("suscipit");
+    }
+});
+pm.sendRequest("GET", "https://jsonplaceholder.typicode.com/posts?title=suscipit");
+
+Teste de limite: Verifica se a consulta retorna apenas 5 posts.
+
+pm.test("Verifica o limite", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.length).to.eql(5);
+});
+pm.sendRequest("GET", "https://jsonplaceholder.typicode.com/posts?_limit=5");
